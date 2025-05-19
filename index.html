@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ルーパー向けトーンジェネレータ</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="controls" id="controls">
+      <h3>ルーパー向け<h3>
+          <h2>トーンジェネレータ</h2>
+          <div class="control-group">
+            <label>音階とオクターブ:</label>
+            <div class="note-select">
+              <select id="note">
+                <option value="C">C</option>
+                <option value="D♭">D♭</option>
+                <option value="D">D</option>
+                <option value="E♭">E♭</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F♯">F♯</option>
+                <option value="G">G</option>
+                <option value="A♭">A♭</option>
+                <option value="A" selected>A</option>
+                <option value="B♭">B♭</option>
+                <option value="B">B</option>
+              </select>
+              <select id="octave">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="frequency">周波数 (Hz):</label>
+            <input type="number" id="frequency" min="16.35" max="7902.13" value="440" step="0.01">
+          </div>
+          <div class="control-group">
+            <label for="waveform">波形:</label>
+            <select id="waveform">
+              <option value="sine">正弦波</option>
+              <option value="square">方形波</option>
+              <option value="sawtooth">のこぎり波</option>
+              <option value="triangle">三角波</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="volume">音量:</label>
+            <div class="volume-control">
+              <div class="volume-buttons">
+                <button id="volumeDown">-</button>
+                <button id="volumeUp">+</button>
+              </div>
+              <input type="range" id="volume" min="0" max="100" value="50">
+              <span id="volumeValue">50%</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="mode">再生モード:</label>
+            <select id="mode">
+              <option value="hold">ホールド (押している間)</option>
+              <option value="toggle">トグル (切り替え)</option>
+            </select>
+          </div>
+          <button id="playButton" class="play">再生</button>
+          <div id="status">停止中</div>
+          <p class="play-instruction">音を再生するには、<strong>スペースキー</strong>または<strong>再生ボタン</strong>を押してください。</p>
+          <div class="footer">
+            <p>開発者: arinomi (<a href="https://twitter.com/arinomi_loop" target="_blank">@arinomi_loop</a>)</p>
+          </div>
+    </div>
+    <div class="instructions">
+      <h3>RC-505mkIIでの設定方法</h3>
+      <p>「ルーパー向けトーンジェネレーター」は、BOSS RC-505mkIIループステーションと組み合わせて、トーン音をループトラックに録音したりエフェクトをかけたりするために設計されています。以下の手順で設定してください。
+      </p>
+      <h4>必要なもの</h4>
+      <ul>
+        <li>BOSS RC-505mkII</li>
+        <li>パソコン (Windows または Mac)</li>
+        <li>USBケーブル (Aタイプ - Bタイプ)</li>
+        <li>Webブラウザ (このサイトを閲覧するため)</li>
+      </ul>
+      <h4>設定手順</h4>
+      <ol>
+        <li><strong>パソコンとRC-505mkIIを接続</strong><br>付属のUSBケーブルを使用して、パソコンのUSBポートとRC-505mkII背面のUSB端子を接続します。</li>
+        <li>
+          <strong>パソコンの音声出力を設定</strong><br>パソコンからの音声がRC-505mkIIに出力されるようにします。<br><br><em>Windows:</em><br>タスクバーのスピーカーアイコンを右クリックし、「サウンド設定」を選択。出力デバイスで「RC-505mkII」を選択します。<br><br><em>Mac:</em><br>「システム環境設定」→「サウンド」→「出力」タブで「RC-505mkII」を選択します。
+        </li>
+        <li><strong>RC-505mkIIのUSBオーディオ設定</strong><br>パソコンからの音声をループトラックで使用できるように設定します。<br><br>
+          - [MENU] ボタンを押してシステム設定を開きます。<br>
+          - [◀] [▶] ボタンを使用して「USB」の項目を探す。<br>
+          - 「USB」を選択する<br>
+          - 「ROUTING」のつまみを右端に回して「LOOP IN」に設定。<br><br>
+          <strong>「LOOP IN」の役割:</strong> USB経由の音声（このトーンジェネレーターの出力）がループトラックの入力として扱われ、録音やインプットFXの適用が可能になります。（参考:
+          RC-505mkII パラメーター・ガイド p.28）<br><br>
+          「INPUT LEVEL」を調整し、レベルメーターを見ながら音量を最適化します。（参考: RC-505mkII 取扱説明書 p.18）<br><br>
+          [EXIT] ボタンを数回押してプレイ画面に戻ります。
+        </li>
+        <li><strong>トーンジェネレーターで音を再生</strong><br>このサイトの左側パネルで音階、オクターブ、波形、音量を設定し、「再生」ボタンまたはスペースキーで音を鳴らします。</li>
+        <li><strong>RC-505mkIIで録音・エフェクト適用</strong><br>
+          - INPUT FX セクションでエフェクト（例: OSC BOT）を選択。<br>
+          - INPUT FXの「INSERT」が「ALL」に設定されていることを確認。（参考: RC-505mkII パラメーター・ガイド p.5）<br>
+          - 録音したいトラックの [►/●] ボタンを押して録音開始。トーンジェネレーターの再生ボタンをクリック又はスペースキーを押下することで、音声が入力されます。INPUT FXをかけることも可能です。（参考:
+          RC-505mkII 取扱説明書 p.11）
+        </li>
+      </ol>
+      <h4>トラブルシューティング</h4>
+      <ul>
+        <li><strong>音が出ない/入力されない:</strong><br>
+          - パソコンの出力デバイスが「RC-505mkII」に設定されているか確認。<br>
+          - RC-505mkIIの「USB ROUTING」が「LOOP IN」に設定されているか確認。<br>
+          - [OUTPUT LEVEL] つまみやスピーカー/ヘッドホンの音量を確認。<br>
+          - USBケーブルの接続を確認。
+        </li>
+        <li><strong>音が歪む:</strong><br>
+          - RC-505mkIIの「INPUT LEVEL」を下げて調整。<br>
+          - トーンジェネレーターの音量スライダーを下げて調整。
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
