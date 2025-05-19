@@ -1,0 +1,226 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.controls {
+  flex: 1;
+  padding: 30px;
+  background: #fafafa;
+  transition: background-color 0.3s;
+}
+
+.controls.playing {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #fafafa;
+  }
+
+  50% {
+    background-color: #e6f3e6;
+  }
+
+  100% {
+    background-color: #fafafa;
+  }
+}
+
+.instructions {
+  flex: 2;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.control-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.note-select {
+  display: flex;
+  gap: 10px;
+}
+
+.note-select select {
+  flex: 1;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+}
+
+.volume-control input[type="range"] {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.volume-control span {
+  min-width: 30px;
+  text-align: right;
+  color: #333;
+}
+
+.volume-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.volume-buttons button {
+  background: #eee;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.volume-buttons button:hover {
+  background: #ddd;
+}
+
+button#playButton {
+  width: 100%;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button#playButton.play {
+  background-color: #4CAF50;
+  color: white;
+}
+
+button#playButton.stop {
+  background-color: #f44336;
+  color: white;
+}
+
+button#playButton.hold-active {
+  background-color: #2196F3;
+  color: white;
+}
+
+button#playButton.play:hover {
+  background-color: #45a049;
+}
+
+button#playButton.stop:hover {
+  background-color: #d32f2f;
+}
+
+button#playButton.hold-active:hover {
+  background-color: #1976D2;
+}
+
+#status {
+  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+#status.playing {
+  color: #4CAF50;
+  animation: blink 1s infinite;
+}
+
+.play-instruction {
+  font-size: 0.85em;
+  color: #666;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.instructions h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.instructions p,
+.instructions ol,
+.instructions ul {
+  color: #555;
+  line-height: 1.6;
+}
+
+.instructions ol,
+.instructions ul {
+  padding-left: 20px;
+}
+
+.instructions li {
+  margin-bottom: 10px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #777;
+}
+
+.footer a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .controls,
+  .instructions {
+    flex: none;
+    max-height: none;
+  }
+}
