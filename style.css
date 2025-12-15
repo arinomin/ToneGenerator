@@ -1,211 +1,485 @@
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 20px;
+/* ===== CSS Variables ===== */
+:root {
+  --bg-primary: #0f0f1a;
+  --bg-secondary: #1a1a2e;
+  --bg-card: #1f1f3a;
+  --bg-input: #12121f;
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0b8;
+  --text-muted: #606078;
+  --accent: #00d4ff;
+  --accent-glow: rgba(0, 212, 255, 0.4);
+  --success: #22c55e;
+  --danger: #ef4444;
+  --border: #2a2a4a;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+* {
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   min-height: 100vh;
-}
-
-.container {
+  min-height: 100dvh;
   display: flex;
-  width: 100%;
-  max-width: 1200px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  flex-direction: column;
 }
 
-.controls {
+/* ===== App Container ===== */
+.app {
   flex: 1;
-  padding: 30px;
-  background: #fafafa;
-  transition: background-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  width: 100%;
 }
 
-.controls.playing {
-  animation: pulse 2s infinite;
+/* ===== Header ===== */
+.header {
+  text-align: center;
+  padding: 12px 0 20px;
 }
 
-@keyframes pulse {
-  0% {
-    background-color: #fafafa;
+.header h1 {
+  font-size: 1.4em;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.header p {
+  font-size: 0.85em;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ===== Main Play Section ===== */
+.play-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* Big Play Button */
+.play-button-container {
+  position: relative;
+}
+
+#playButton {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.3em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+#playButton.play {
+  background: linear-gradient(145deg, #28a745, #1e7e34);
+  color: white;
+  box-shadow: 0 8px 30px rgba(40, 167, 69, 0.4);
+}
+
+#playButton.play:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(40, 167, 69, 0.5);
+}
+
+#playButton.play:active {
+  transform: scale(0.98);
+}
+
+#playButton.stop {
+  background: linear-gradient(145deg, #dc3545, #c82333);
+  color: white;
+  box-shadow: 0 8px 30px rgba(220, 53, 69, 0.4);
+  animation: pulseRing 1.5s infinite;
+}
+
+@keyframes pulseRing {
+
+  0%,
+  100% {
+    box-shadow: 0 8px 30px rgba(220, 53, 69, 0.4);
   }
 
   50% {
-    background-color: #e6f3e6;
-  }
-
-  100% {
-    background-color: #fafafa;
+    box-shadow: 0 8px 50px rgba(220, 53, 69, 0.6), 0 0 0 15px rgba(220, 53, 69, 0.1);
   }
 }
 
-.instructions {
-  flex: 2;
-  padding: 30px;
-  overflow-y: auto;
-}
-
-h2 {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.control-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-input[type="number"],
-select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.note-select {
-  display: flex;
-  gap: 10px;
-}
-
-.note-select select {
-  flex: 1;
-}
-
-.volume-control {
-  display: flex;
-  align-items: center;
-}
-
-.volume-control input[type="range"] {
-  flex: 1;
-  margin: 0 10px;
-}
-
-.volume-control span {
-  min-width: 30px;
-  text-align: right;
-  color: #333;
-}
-
-.volume-buttons {
-  display: flex;
-  gap: 5px;
-}
-
-.volume-buttons button {
-  background: #eee;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.volume-buttons button:hover {
-  background: #ddd;
-}
-
-button#playButton {
-  width: 100%;
-  border: none;
-  padding: 12px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-top: 10px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-button#playButton.play {
-  background-color: #4CAF50;
-  color: white;
-}
-
-button#playButton.stop {
-  background-color: #f44336;
-  color: white;
-}
-
-button#playButton.hold-active {
-  background-color: #2196F3;
-  color: white;
-}
-
-button#playButton.play:hover {
-  background-color: #45a049;
-}
-
-button#playButton.stop:hover {
-  background-color: #d32f2f;
-}
-
-button#playButton.hold-active:hover {
-  background-color: #1976D2;
-}
-
+/* Status */
 #status {
-  text-align: center;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #333;
+  font-size: 0.9em;
+  color: var(--text-muted);
+  padding: 6px 16px;
+  background: var(--bg-card);
+  border-radius: 20px;
 }
 
 #status.playing {
-  color: #4CAF50;
-  animation: blink 1s infinite;
+  color: var(--success);
+  background: rgba(34, 197, 94, 0.15);
 }
 
-.play-instruction {
-  font-size: 0.85em;
+/* ===== Oscilloscope ===== */
+.oscilloscope-section {
+  width: 100%;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+#oscilloscope {
+  width: 100%;
+  height: 60px;
+  background: var(--bg-input);
+  border-radius: 8px;
+  display: block;
+}
+
+/* ===== Piano Keyboard ===== */
+.piano-section {
+  width: 100%;
+}
+
+.piano-keyboard {
+  display: flex;
+  position: relative;
+  height: 90px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 10px 6px;
+  gap: 2px;
+}
+
+.piano-key {
+  flex: 1;
+  background: linear-gradient(180deg, #fafafa 0%, #d8d8d8 100%);
+  border: none;
+  border-radius: 0 0 6px 6px;
+  cursor: pointer;
+  transition: all 0.1s;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+  font-size: 0.65em;
+  font-weight: 600;
   color: #666;
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0.5;
-  }
+.piano-key:hover {
+  background: linear-gradient(180deg, #fff 0%, #eee 100%);
 }
 
-.instructions h3 {
-  color: #333;
-  margin-bottom: 10px;
+.piano-key.active {
+  background: linear-gradient(180deg, var(--accent) 0%, #00a0cc 100%);
+  color: white;
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
-.instructions p,
-.instructions ol,
-.instructions ul {
-  color: #555;
+.piano-key.black {
+  position: absolute;
+  width: 7%;
+  height: 55%;
+  background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+  color: #888;
+  z-index: 2;
+  font-size: 0.55em;
+  border-radius: 0 0 4px 4px;
+}
+
+.piano-key.black:hover {
+  background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
+}
+
+.piano-key.black.active {
+  background: linear-gradient(180deg, #00a0cc 0%, #007799 100%);
+  color: white;
+}
+
+.piano-key.black[data-note="D♭"] {
+  left: calc(8.33% * 1 - 2%);
+}
+
+.piano-key.black[data-note="E♭"] {
+  left: calc(8.33% * 2 - 2%);
+}
+
+.piano-key.black[data-note="F♯"] {
+  left: calc(8.33% * 4 - 2%);
+}
+
+.piano-key.black[data-note="A♭"] {
+  left: calc(8.33% * 5 - 2%);
+}
+
+.piano-key.black[data-note="B♭"] {
+  left: calc(8.33% * 6 - 2%);
+}
+
+/* ===== Controls Grid ===== */
+.controls-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.control-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.control-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.control-label {
+  display: block;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.control-card select,
+.control-card input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1em;
+  appearance: none;
+}
+
+.control-card select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23606078' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.control-card select:focus,
+.control-card input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Volume Slider */
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.volume-row input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 8px;
+  background: var(--bg-input);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.volume-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.volume-value {
+  min-width: 45px;
+  text-align: right;
+  font-weight: 600;
+  font-family: 'Consolas', monospace;
+  color: var(--accent);
+}
+
+/* Octave Buttons */
+.octave-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.octave-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-radius: 8px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.octave-btn:hover {
+  background: var(--border);
+  border-color: var(--accent);
+}
+
+.octave-display {
+  flex: 1;
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: 'Consolas', monospace;
+}
+
+/* ===== Shortcuts (PC only) ===== */
+.shortcuts-section {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  width: 100%;
+}
+
+.shortcuts-title {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.shortcuts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 0.8em;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shortcut-item kbd {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: 'Consolas', monospace;
+  font-size: 0.9em;
+  color: var(--accent);
+}
+
+.shortcut-item span {
+  color: var(--text-muted);
+}
+
+/* ===== Help Section (Accordion) ===== */
+.help-section {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.help-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.help-toggle:hover {
+  background: var(--bg-secondary);
+}
+
+.help-toggle-icon {
+  transition: transform 0.3s;
+  color: var(--accent);
+}
+
+.help-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: var(--bg-card);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.help-section.open .help-toggle {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.help-section.open .help-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.help-section.open .help-content {
+  max-height: 800px;
+}
+
+.help-inner {
+  padding: 0 16px 16px;
+  font-size: 0.8em;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
-.instructions ol,
-.instructions ul {
-  padding-left: 20px;
+.help-inner h4 {
+  color: var(--text-secondary);
+  font-size: 0.95em;
+  margin: 12px 0 6px;
 }
 
-.instructions li {
-  margin-bottom: 10px;
+.help-inner ul,
+.help-inner ol {
+  padding-left: 18px;
+  margin: 6px 0;
 }
 
+.help-inner li {
+  margin-bottom: 4px;
+}
+
+/* ===== Footer ===== */
 .footer {
   text-align: center;
-  margin-top: 20px;
-  color: #777;
+  padding: 16px;
+  font-size: 0.8em;
+  color: var(--text-muted);
 }
 
 .footer a {
-  color: #4CAF50;
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -213,14 +487,65 @@ button#playButton.hold-active:hover {
   text-decoration: underline;
 }
 
-@media (max-width: 900px) {
-  .container {
-    flex-direction: column;
+/* ===== Responsive ===== */
+@media (min-width: 768px) {
+  .app {
+    padding: 24px;
+    justify-content: center;
   }
 
-  .controls,
-  .instructions {
-    flex: none;
-    max-height: none;
+  #playButton {
+    width: 160px;
+    height: 160px;
+    font-size: 1.5em;
+  }
+
+  .piano-keyboard {
+    height: 100px;
+  }
+
+  .controls-section {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .control-card.half {
+    grid-column: span 2;
+  }
+
+  .shortcuts-grid {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .app {
+    padding: 12px;
+  }
+
+  #playButton {
+    width: 120px;
+    height: 120px;
+    font-size: 1.1em;
+  }
+
+  .piano-keyboard {
+    height: 75px;
+  }
+
+  .piano-key {
+    font-size: 0.55em;
+  }
+
+  .shortcuts-section {
+    display: none;
+  }
+
+  .controls-section {
+    gap: 10px;
+  }
+
+  .control-card {
+    padding: 12px;
   }
 }
