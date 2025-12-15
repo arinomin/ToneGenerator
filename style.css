@@ -28,85 +28,79 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
 }
 
 /* ===== App Container ===== */
 .app {
-  flex: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  margin: 0 auto;
   padding: 16px;
-  width: 100%;
+  max-width: 100%;
 }
 
 /* ===== Header ===== */
 .header {
   text-align: center;
-  padding: 12px 0 20px;
+  padding: 8px 0 16px;
+  flex-shrink: 0;
 }
 
 .header h1 {
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .header p {
-  font-size: 0.85em;
+  font-size: 0.8em;
   color: var(--text-muted);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
-/* ===== Main Play Section ===== */
+/* ===== Main Content ===== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===== Play Section ===== */
 .play-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 20px 0;
-}
-
-/* Big Play Button */
-.play-button-container {
-  position: relative;
+  gap: 12px;
+  padding: 16px 0;
 }
 
 #playButton {
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   border: none;
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  position: relative;
-  z-index: 1;
 }
 
 #playButton.play {
   background: linear-gradient(145deg, #28a745, #1e7e34);
   color: white;
-  box-shadow: 0 8px 30px rgba(40, 167, 69, 0.4);
+  box-shadow: 0 6px 25px rgba(40, 167, 69, 0.4);
 }
 
 #playButton.play:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 40px rgba(40, 167, 69, 0.5);
-}
-
-#playButton.play:active {
-  transform: scale(0.98);
 }
 
 #playButton.stop {
   background: linear-gradient(145deg, #dc3545, #c82333);
   color: white;
-  box-shadow: 0 8px 30px rgba(220, 53, 69, 0.4);
+  box-shadow: 0 6px 25px rgba(220, 53, 69, 0.4);
   animation: pulseRing 1.5s infinite;
 }
 
@@ -114,21 +108,20 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 8px 30px rgba(220, 53, 69, 0.4);
+    box-shadow: 0 6px 25px rgba(220, 53, 69, 0.4);
   }
 
   50% {
-    box-shadow: 0 8px 50px rgba(220, 53, 69, 0.6), 0 0 0 15px rgba(220, 53, 69, 0.1);
+    box-shadow: 0 6px 40px rgba(220, 53, 69, 0.6), 0 0 0 12px rgba(220, 53, 69, 0.1);
   }
 }
 
-/* Status */
 #status {
-  font-size: 0.9em;
+  font-size: 0.85em;
   color: var(--text-muted);
-  padding: 6px 16px;
+  padding: 5px 14px;
   background: var(--bg-card);
-  border-radius: 20px;
+  border-radius: 16px;
 }
 
 #status.playing {
@@ -138,36 +131,42 @@ body {
 
 /* ===== Oscilloscope ===== */
 .oscilloscope-section {
-  width: 100%;
   background: var(--bg-card);
   border-radius: var(--radius);
-  padding: 12px;
+  padding: 10px;
 }
 
 #oscilloscope {
   width: 100%;
-  height: 60px;
+  height: 50px;
   background: var(--bg-input);
   border-radius: 8px;
   display: block;
 }
 
-/* ===== Piano Keyboard ===== */
+/* ===== Piano Keyboard (Correct Layout) ===== */
 .piano-section {
   width: 100%;
 }
 
 .piano-keyboard {
-  display: flex;
   position: relative;
-  height: 90px;
+  height: 100px;
+  display: flex;
   background: var(--bg-card);
   border-radius: var(--radius);
-  padding: 10px 6px;
+  padding: 8px;
+  padding-top: 8px;
+}
+
+/* White keys container */
+.white-keys {
+  display: flex;
+  width: 100%;
   gap: 2px;
 }
 
-.piano-key {
+.piano-key.white {
   flex: 1;
   background: linear-gradient(180deg, #fafafa 0%, #d8d8d8 100%);
   border: none;
@@ -177,31 +176,50 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 6px;
-  font-size: 0.65em;
+  padding-bottom: 5px;
+  font-size: 0.6em;
   font-weight: 600;
   color: #666;
+  height: 100%;
 }
 
-.piano-key:hover {
+.piano-key.white:hover {
   background: linear-gradient(180deg, #fff 0%, #eee 100%);
 }
 
-.piano-key.active {
+.piano-key.white.active {
   background: linear-gradient(180deg, var(--accent) 0%, #00a0cc 100%);
   color: white;
-  box-shadow: 0 0 20px var(--accent-glow);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* Black keys - positioned absolutely */
+.black-keys {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  height: 50%;
+  pointer-events: none;
 }
 
 .piano-key.black {
   position: absolute;
-  width: 7%;
-  height: 55%;
+  width: 8%;
+  height: 100%;
   background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+  border: none;
+  border-radius: 0 0 4px 4px;
+  cursor: pointer;
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  font-size: 0.5em;
+  font-weight: 600;
   color: #888;
   z-index: 2;
-  font-size: 0.55em;
-  border-radius: 0 0 4px 4px;
 }
 
 .piano-key.black:hover {
@@ -213,38 +231,46 @@ body {
   color: white;
 }
 
+/* Black key positions - between correct white keys */
+/* C-D gap, D-E gap, F-G gap, G-A gap, A-B gap */
+/* White keys: C(0) D(1) E(2) F(3) G(4) A(5) B(6) */
 .piano-key.black[data-note="D♭"] {
-  left: calc(8.33% * 1 - 2%);
+  left: calc(14.28% * 1 - 4%);
 }
 
+/* Between C and D */
 .piano-key.black[data-note="E♭"] {
-  left: calc(8.33% * 2 - 2%);
+  left: calc(14.28% * 2 - 4%);
 }
 
+/* Between D and E */
 .piano-key.black[data-note="F♯"] {
-  left: calc(8.33% * 4 - 2%);
+  left: calc(14.28% * 4 - 4%);
 }
 
+/* Between F and G */
 .piano-key.black[data-note="A♭"] {
-  left: calc(8.33% * 5 - 2%);
+  left: calc(14.28% * 5 - 4%);
 }
 
+/* Between G and A */
 .piano-key.black[data-note="B♭"] {
-  left: calc(8.33% * 6 - 2%);
+  left: calc(14.28% * 6 - 4%);
 }
+
+/* Between A and B */
 
 /* ===== Controls Grid ===== */
 .controls-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  width: 100%;
+  gap: 10px;
 }
 
 .control-card {
   background: var(--bg-card);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 12px;
 }
 
 .control-card.full-width {
@@ -253,30 +279,30 @@ body {
 
 .control-label {
   display: block;
-  font-size: 0.7em;
+  font-size: 0.65em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .control-card select,
 .control-card input[type="number"] {
   width: 100%;
-  padding: 10px 12px;
+  padding: 8px 10px;
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--text-primary);
-  font-size: 1em;
+  font-size: 0.95em;
   appearance: none;
 }
 
 .control-card select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23606078' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 36px;
+  background-position: right 10px center;
+  padding-right: 32px;
   cursor: pointer;
 }
 
@@ -286,55 +312,56 @@ body {
   border-color: var(--accent);
 }
 
-/* Volume Slider */
+/* Volume */
 .volume-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.volume-row input[type="range"] {
-  flex: 1;
-  -webkit-appearance: none;
-  height: 8px;
-  background: var(--bg-input);
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.volume-row input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 22px;
-  height: 22px;
-  background: var(--accent);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 10px var(--accent-glow);
-}
-
-.volume-value {
-  min-width: 45px;
-  text-align: right;
-  font-weight: 600;
-  font-family: 'Consolas', monospace;
-  color: var(--accent);
-}
-
-/* Octave Buttons */
-.octave-row {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+.volume-row input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  background: var(--bg-input);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.volume-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.volume-value {
+  min-width: 40px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 0.9em;
+  font-family: 'Consolas', monospace;
+  color: var(--accent);
+}
+
+/* Octave */
+.octave-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .octave-btn {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border: 1px solid var(--border);
   background: var(--bg-input);
   color: var(--text-primary);
   border-radius: 8px;
-  font-size: 1.2em;
+  font-size: 1.1em;
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -347,46 +374,45 @@ body {
 .octave-display {
   flex: 1;
   text-align: center;
-  font-size: 1.8em;
+  font-size: 1.5em;
   font-weight: 700;
   color: var(--accent);
   font-family: 'Consolas', monospace;
 }
 
-/* ===== Shortcuts (PC only) ===== */
+/* ===== Shortcuts ===== */
 .shortcuts-section {
   background: var(--bg-card);
   border-radius: var(--radius);
-  padding: 12px 16px;
-  width: 100%;
+  padding: 10px 14px;
 }
 
 .shortcuts-title {
-  font-size: 0.7em;
+  font-size: 0.65em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .shortcuts-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 16px;
-  font-size: 0.8em;
+  gap: 4px 12px;
+  font-size: 0.75em;
 }
 
 .shortcut-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .shortcut-item kbd {
   background: var(--bg-input);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 2px 6px;
+  border-radius: 3px;
+  padding: 1px 5px;
   font-family: 'Consolas', monospace;
   font-size: 0.9em;
   color: var(--accent);
@@ -396,11 +422,9 @@ body {
   color: var(--text-muted);
 }
 
-/* ===== Help Section (Accordion) ===== */
+/* ===== Help Section ===== */
 .help-section {
-  width: 100%;
-  margin-top: auto;
-  padding-top: 16px;
+  flex-shrink: 0;
 }
 
 .help-toggle {
@@ -408,12 +432,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: var(--bg-card);
   border: none;
   border-radius: var(--radius);
   color: var(--text-secondary);
-  font-size: 0.85em;
+  font-size: 0.8em;
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -444,38 +468,39 @@ body {
 }
 
 .help-section.open .help-content {
-  max-height: 800px;
+  max-height: 600px;
 }
 
 .help-inner {
-  padding: 0 16px 16px;
-  font-size: 0.8em;
+  padding: 0 14px 14px;
+  font-size: 0.75em;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .help-inner h4 {
   color: var(--text-secondary);
-  font-size: 0.95em;
-  margin: 12px 0 6px;
+  font-size: 0.9em;
+  margin: 10px 0 4px;
 }
 
 .help-inner ul,
 .help-inner ol {
-  padding-left: 18px;
-  margin: 6px 0;
+  padding-left: 16px;
+  margin: 4px 0;
 }
 
 .help-inner li {
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 /* ===== Footer ===== */
 .footer {
   text-align: center;
-  padding: 16px;
-  font-size: 0.8em;
+  padding: 12px;
+  font-size: 0.75em;
   color: var(--text-muted);
+  flex-shrink: 0;
 }
 
 .footer a {
@@ -483,58 +508,153 @@ body {
   text-decoration: none;
 }
 
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* ===== Responsive ===== */
+/* ================================================================
+   DESKTOP LAYOUT (768px+)
+   Two-column layout: Left = Play + Piano, Right = Controls
+   ================================================================ */
 @media (min-width: 768px) {
-  .app {
-    padding: 24px;
+  body {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .app {
+    max-width: 1000px;
+    min-height: auto;
+    padding: 24px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .header {
+    padding: 0 0 20px;
+  }
+
+  .header h1 {
+    font-size: 1.5em;
+  }
+
+  /* Two column layout */
+  .main-content {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  /* Left column: Play + Oscilloscope + Piano */
+  .left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .play-section {
+    padding: 24px 0;
   }
 
   #playButton {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
+    font-size: 1.4em;
+  }
+
+  #oscilloscope {
+    height: 70px;
+  }
+
+  .piano-keyboard {
+    height: 120px;
+  }
+
+  .piano-key.white {
+    font-size: 0.7em;
+  }
+
+  .piano-key.black {
+    font-size: 0.55em;
+  }
+
+  /* Right column: Controls + Shortcuts + Help */
+  .right-column {
+    width: 320px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .controls-section {
+    gap: 12px;
+  }
+
+  .control-card {
+    padding: 14px;
+  }
+
+  .shortcuts-section {
+    padding: 12px 16px;
+  }
+
+  .shortcuts-grid {
+    font-size: 0.8em;
+  }
+
+  .help-section {
+    margin-top: auto;
+  }
+}
+
+/* ================================================================
+   LARGE DESKTOP (1024px+)
+   ================================================================ */
+@media (min-width: 1024px) {
+  .app {
+    max-width: 1100px;
+    padding: 32px;
+  }
+
+  .right-column {
+    width: 360px;
+  }
+
+  #playButton {
+    width: 170px;
+    height: 170px;
     font-size: 1.5em;
   }
 
   .piano-keyboard {
-    height: 100px;
-  }
-
-  .controls-section {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-
-  .control-card.half {
-    grid-column: span 2;
-  }
-
-  .shortcuts-grid {
-    justify-content: center;
+    height: 130px;
   }
 }
 
+/* ================================================================
+   SMALL MOBILE (max 400px)
+   ================================================================ */
 @media (max-width: 400px) {
   .app {
-    padding: 12px;
+    padding: 10px;
   }
 
   #playButton {
-    width: 120px;
-    height: 120px;
-    font-size: 1.1em;
+    width: 100px;
+    height: 100px;
+    font-size: 1em;
   }
 
   .piano-keyboard {
-    height: 75px;
+    height: 80px;
   }
 
-  .piano-key {
-    font-size: 0.55em;
+  .piano-key.white {
+    font-size: 0.5em;
+  }
+
+  .piano-key.black {
+    font-size: 0.4em;
   }
 
   .shortcuts-section {
@@ -542,10 +662,10 @@ body {
   }
 
   .controls-section {
-    gap: 10px;
+    gap: 8px;
   }
 
   .control-card {
-    padding: 12px;
+    padding: 10px;
   }
 }

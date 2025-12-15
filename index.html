@@ -16,158 +16,164 @@
       <p>RC-505mkII対応</p>
     </header>
 
-    <!-- Main Play Section -->
-    <section class="play-section">
-      <div class="play-button-container">
-        <button id="playButton" class="play">再生</button>
-      </div>
-      <div id="status">停止中</div>
-    </section>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Left Column (Mobile: top) -->
+      <div class="left-column">
+        <!-- Play Button -->
+        <section class="play-section">
+          <button id="playButton" class="play">再生</button>
+          <div id="status">停止中</div>
+        </section>
 
-    <!-- Oscilloscope -->
-    <section class="oscilloscope-section">
-      <canvas id="oscilloscope"></canvas>
-    </section>
+        <!-- Oscilloscope -->
+        <section class="oscilloscope-section">
+          <canvas id="oscilloscope"></canvas>
+        </section>
 
-    <!-- Piano Keyboard -->
-    <section class="piano-section">
-      <div class="piano-keyboard" id="pianoKeyboard">
-        <div class="piano-key white" data-note="C">C</div>
-        <div class="piano-key black" data-note="D♭">D♭</div>
-        <div class="piano-key white" data-note="D">D</div>
-        <div class="piano-key black" data-note="E♭">E♭</div>
-        <div class="piano-key white" data-note="E">E</div>
-        <div class="piano-key white" data-note="F">F</div>
-        <div class="piano-key black" data-note="F♯">F♯</div>
-        <div class="piano-key white" data-note="G">G</div>
-        <div class="piano-key black" data-note="A♭">A♭</div>
-        <div class="piano-key white" data-note="A">A</div>
-        <div class="piano-key black" data-note="B♭">B♭</div>
-        <div class="piano-key white" data-note="B">B</div>
-      </div>
-    </section>
-
-    <!-- Controls -->
-    <section class="controls-section">
-      <!-- Octave -->
-      <div class="control-card half">
-        <span class="control-label">オクターブ</span>
-        <div class="octave-row">
-          <button class="octave-btn" id="octaveDown">−</button>
-          <span class="octave-display" id="octaveDisplay">4</span>
-          <button class="octave-btn" id="octaveUp">+</button>
-        </div>
+        <!-- Piano Keyboard -->
+        <section class="piano-section">
+          <div class="piano-keyboard" id="pianoKeyboard">
+            <!-- White keys -->
+            <div class="white-keys">
+              <div class="piano-key white" data-note="C">C</div>
+              <div class="piano-key white" data-note="D">D</div>
+              <div class="piano-key white" data-note="E">E</div>
+              <div class="piano-key white" data-note="F">F</div>
+              <div class="piano-key white" data-note="G">G</div>
+              <div class="piano-key white" data-note="A">A</div>
+              <div class="piano-key white" data-note="B">B</div>
+            </div>
+            <!-- Black keys -->
+            <div class="black-keys">
+              <div class="piano-key black" data-note="D♭">D♭</div>
+              <div class="piano-key black" data-note="E♭">E♭</div>
+              <div class="piano-key black" data-note="F♯">F♯</div>
+              <div class="piano-key black" data-note="A♭">A♭</div>
+              <div class="piano-key black" data-note="B♭">B♭</div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <!-- Waveform -->
-      <div class="control-card half">
-        <span class="control-label">波形</span>
-        <select id="waveform">
-          <option value="sine">正弦波</option>
-          <option value="square">方形波</option>
-          <option value="sawtooth">のこぎり波</option>
-          <option value="triangle">三角波</option>
-        </select>
-      </div>
+      <!-- Right Column (Mobile: bottom) -->
+      <div class="right-column">
+        <!-- Controls -->
+        <section class="controls-section">
+          <!-- Octave -->
+          <div class="control-card">
+            <span class="control-label">オクターブ</span>
+            <div class="octave-row">
+              <button class="octave-btn" id="octaveDown">−</button>
+              <span class="octave-display" id="octaveDisplay">4</span>
+              <button class="octave-btn" id="octaveUp">+</button>
+            </div>
+          </div>
 
-      <!-- Volume -->
-      <div class="control-card full-width">
-        <span class="control-label">音量</span>
-        <div class="volume-row">
-          <input type="range" id="volume" min="0" max="100" value="50">
-          <span class="volume-value" id="volumeValue">50%</span>
-        </div>
-      </div>
+          <!-- Waveform -->
+          <div class="control-card">
+            <span class="control-label">波形</span>
+            <select id="waveform">
+              <option value="sine">正弦波</option>
+              <option value="square">方形波</option>
+              <option value="sawtooth">のこぎり波</option>
+              <option value="triangle">三角波</option>
+            </select>
+          </div>
 
-      <!-- Play Mode -->
-      <div class="control-card half">
-        <span class="control-label">再生モード</span>
-        <select id="mode">
-          <option value="hold">ホールド</option>
-          <option value="toggle">トグル</option>
-        </select>
-      </div>
+          <!-- Volume -->
+          <div class="control-card full-width">
+            <span class="control-label">音量</span>
+            <div class="volume-row">
+              <input type="range" id="volume" min="0" max="100" value="50">
+              <span class="volume-value" id="volumeValue">50%</span>
+            </div>
+          </div>
 
-      <!-- Frequency -->
-      <div class="control-card half">
-        <span class="control-label">周波数 (Hz)</span>
-        <input type="number" id="frequency" min="16.35" max="7902.13" value="440" step="0.01">
-      </div>
-    </section>
+          <!-- Play Mode -->
+          <div class="control-card">
+            <span class="control-label">再生モード</span>
+            <select id="mode">
+              <option value="hold">ホールド</option>
+              <option value="toggle">トグル</option>
+            </select>
+          </div>
 
-    <!-- Hidden selects for compatibility -->
-    <select id="note" style="display:none;">
-      <option value="C">C</option>
-      <option value="D♭">D♭</option>
-      <option value="D">D</option>
-      <option value="E♭">E♭</option>
-      <option value="E">E</option>
-      <option value="F">F</option>
-      <option value="F♯">F♯</option>
-      <option value="G">G</option>
-      <option value="A♭">A♭</option>
-      <option value="A" selected>A</option>
-      <option value="B♭">B♭</option>
-      <option value="B">B</option>
-    </select>
-    <select id="octave" style="display:none;">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4" selected>4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-    </select>
+          <!-- Frequency -->
+          <div class="control-card">
+            <span class="control-label">周波数 (Hz)</span>
+            <input type="number" id="frequency" min="16.35" max="7902.13" value="440" step="0.01">
+          </div>
+        </section>
 
-    <!-- Shortcuts (PC) -->
-    <section class="shortcuts-section">
-      <div class="shortcuts-title">ショートカット</div>
-      <div class="shortcuts-grid">
-        <div class="shortcut-item"><kbd>Space</kbd><span>再生/停止</span></div>
-        <div class="shortcut-item"><kbd>←→</kbd><span>音階</span></div>
-        <div class="shortcut-item"><kbd>↑↓</kbd><span>オクターブ</span></div>
-        <div class="shortcut-item"><kbd>W</kbd><span>波形</span></div>
-      </div>
-    </section>
+        <!-- Shortcuts -->
+        <section class="shortcuts-section">
+          <div class="shortcuts-title">ショートカット</div>
+          <div class="shortcuts-grid">
+            <div class="shortcut-item"><kbd>Space</kbd><span>再生/停止</span></div>
+            <div class="shortcut-item"><kbd>←→</kbd><span>音階</span></div>
+            <div class="shortcut-item"><kbd>↑↓</kbd><span>オクターブ</span></div>
+            <div class="shortcut-item"><kbd>W</kbd><span>波形</span></div>
+          </div>
+        </section>
 
-    <!-- Help Section -->
-    <section class="help-section" id="helpSection">
-      <button class="help-toggle" id="helpToggle">
-        <span>RC-505mkIIでの設定方法</span>
-        <span class="help-toggle-icon">▼</span>
-      </button>
-      <div class="help-content">
-        <div class="help-inner">
-          <h4>必要なもの</h4>
-          <ul>
-            <li>BOSS RC-505mkII</li>
-            <li>パソコン (Windows / Mac)</li>
-            <li>USBケーブル (A-B)</li>
-          </ul>
-          <h4>設定手順</h4>
-          <ol>
-            <li>パソコンとRC-505mkIIをUSB接続</li>
-            <li>パソコンの音声出力を「RC-505mkII」に設定</li>
-            <li>RC-505mkII: [MENU] → USB → ROUTING を「LOOP IN」に</li>
-            <li>このアプリで再生ボタンを押して音を鳴らす</li>
-          </ol>
-          <h4>問題がある場合</h4>
-          <ul>
-            <li>音が出ない → 出力デバイスとUSB ROUTINGを確認</li>
-            <li>音が歪む → INPUT LEVELまたは音量を下げる</li>
-          </ul>
-        </div>
+        <!-- Help -->
+        <section class="help-section" id="helpSection">
+          <button class="help-toggle" id="helpToggle">
+            <span>RC-505mkIIでの設定方法</span>
+            <span class="help-toggle-icon">▼</span>
+          </button>
+          <div class="help-content">
+            <div class="help-inner">
+              <h4>必要なもの</h4>
+              <ul>
+                <li>BOSS RC-505mkII</li>
+                <li>パソコン + USBケーブル</li>
+              </ul>
+              <h4>設定手順</h4>
+              <ol>
+                <li>USB接続 → 音声出力を RC-505mkII に設定</li>
+                <li>RC-505mkII: [MENU] → USB → ROUTING → LOOP IN</li>
+                <li>再生ボタンで音を出力</li>
+              </ol>
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
       <a href="https://twitter.com/arinomi_loop" target="_blank">@arinomi_loop</a>
     </footer>
   </div>
+
+  <!-- Hidden selects for JS compatibility -->
+  <select id="note" style="display:none;">
+    <option value="C">C</option>
+    <option value="D♭">D♭</option>
+    <option value="D">D</option>
+    <option value="E♭">E♭</option>
+    <option value="E">E</option>
+    <option value="F">F</option>
+    <option value="F♯">F♯</option>
+    <option value="G">G</option>
+    <option value="A♭">A♭</option>
+    <option value="A" selected>A</option>
+    <option value="B♭">B♭</option>
+    <option value="B">B</option>
+  </select>
+  <select id="octave" style="display:none;">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4" selected>4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+  </select>
 
   <script src="script.js"></script>
 </body>
