@@ -161,6 +161,11 @@ function setVolume(value) {
 
 // ===== Audio Playback =====
 function startTone() {
+  // スマホブラウザの自動再生ポリシー対策：サスペンド状態なら再開する
+  if (ctx.state === 'suspended') {
+    ctx.resume();
+  }
+
   if (oscillator) oscillator.stop();
 
   oscillator = ctx.createOscillator();
